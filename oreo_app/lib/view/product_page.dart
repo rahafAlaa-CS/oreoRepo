@@ -147,3 +147,10 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 }
+
+class Item {
+  String name;
+  var list = [];
+
+  Item(this.name, this.list);
+}

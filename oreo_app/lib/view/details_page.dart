@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:oreo_app/components/custom_button.dart';
 import 'package:oreo_app/components/custom_send_buttom.dart';
@@ -13,6 +12,8 @@ class DetailsPage extends StatefulWidget {
   @override
   State<DetailsPage> createState() => _DetailsPageState();
 }
+
+late var list = [];
 
 class _DetailsPageState extends State<DetailsPage> {
   TextEditingController Email = TextEditingController();
@@ -156,16 +157,20 @@ class _DetailsPageState extends State<DetailsPage> {
                       CustomSendButton(
                           title: "Send",
                           action: () async {
+                            print("==========================");
+                            print(jsonDecode(widget.body.body));
+                            // mapToList(TextEditingValue.fromJSON(
+                            //     jsonDecode(widget.body.body)));
                             // Sent Email, words list and pName to the API
                             // Pname : make Pname accesable : make it public
                             // we already have the EMail and the words list
 
                             // call the method send to email
 
-                            // var res = await sendToEmail(
-                            //     Email.text, widget.body.body, productName.text);
-                            // printError(info: "${res.statusCode}");
-                            // printError(info: res.body);
+                            var res = await sendToEmail(
+                                Email.text, widget.body.body, productName.text);
+                            print("${res.statusCode}");
+                            print(res.body);
 
                             Navigator.pop(context);
                           }),
@@ -191,4 +196,20 @@ class _DetailsPageState extends State<DetailsPage> {
           <String, Object>{"words": body, "product": pName, "email": email}),
     );
   }
+}
+
+void mapToList(var x) async {
+  await x.forEach((K, V) {
+    list.add(Item(K, V));
+    for (int i = 0; i < V.length; i++) {
+      print('--------------${V[i]}');
+    }
+  });
+}
+
+class Item {
+  String name;
+  var list = [];
+
+  Item(this.name, this.list);
 }
