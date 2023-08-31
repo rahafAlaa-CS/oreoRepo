@@ -13,8 +13,6 @@ class DetailsPage extends StatefulWidget {
   State<DetailsPage> createState() => _DetailsPageState();
 }
 
-late var list = [];
-
 class _DetailsPageState extends State<DetailsPage> {
   TextEditingController Email = TextEditingController();
   // @override
@@ -70,7 +68,7 @@ class _DetailsPageState extends State<DetailsPage> {
             children: [
               Container(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -81,15 +79,32 @@ class _DetailsPageState extends State<DetailsPage> {
                                   fontFamily: "CrimsonText-Regular",
                                   fontWeight: FontWeight.bold)),
                         ),
-                        // ...List.generate(
-                        //     myModels!.length,
-                        //     (index) => Column(
-                        //           children: [Text(myModels[index])],
-                        //         ))
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.005,
+                        ),
+                        ...List.generate(
+                            widget.body.length,
+                            (index) => Column(
+                                  children: [
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.001,
+                                    ),
+                                    Text(
+                                      widget.body[index].toString(),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 23,
+                                        fontFamily: "CrimsonText-Regular",
+                                      ),
+                                    )
+                                  ],
+                                ))
                       ]),
                 ),
                 height: MediaQuery.of(context).size.height * 0.46,
-                width: MediaQuery.of(context).size.height * 0.432,
+                width: MediaQuery.of(context).size.height * 0.41,
                 decoration: BoxDecoration(
                   color: Color(0xff007A7B),
                   borderRadius: BorderRadius.circular(50),
@@ -158,9 +173,8 @@ class _DetailsPageState extends State<DetailsPage> {
                           title: "Send",
                           action: () async {
                             print("==========================");
-                            print(jsonDecode(widget.body.body));
-                            // mapToList(TextEditingValue.fromJSON(
-                            //     jsonDecode(widget.body.body)));
+                            //print(jsonDecode(widget.body.body));
+
                             // Sent Email, words list and pName to the API
                             // Pname : make Pname accesable : make it public
                             // we already have the EMail and the words list
@@ -168,9 +182,9 @@ class _DetailsPageState extends State<DetailsPage> {
                             // call the method send to email
 
                             var res = await sendToEmail(
-                                Email.text, widget.body.body, productName.text);
+                                Email.text, widget.body, productName.text);
                             print("${res.statusCode}");
-                            print(res.body);
+                            //print(res.body);
 
                             Navigator.pop(context);
                           }),

@@ -18,6 +18,8 @@ String inString = _value.toStringAsFixed(1); // '2.3'
 double _valueInDouble = double.parse(inString); // 2.3
 
 TextEditingController productName = TextEditingController();
+late var list = [];
+late var list2 = [];
 
 class _ProductPageState extends State<ProductPage> {
   late var res;
@@ -113,11 +115,14 @@ class _ProductPageState extends State<ProductPage> {
                   title: "Start",
                   action: () async {
                     //  product();
+
                     print("Response");
                     print("productName" + productName.text);
                     print("value$_valueInDouble");
                     res = await sendRequest(productName.text, _valueInDouble);
                     print(jsonDecode(res.body));
+                    mapToList(jsonDecode(res.body));
+                    print("=======================${list2}");
                     start();
                   }),
               SizedBox(
@@ -132,10 +137,20 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  void start() {
+  void start() async {
     if (productName.text.isNotEmpty)
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (BuildContext context) => DetailsPage(body: res)));
+      await Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) => DetailsPage(body: list2)));
+  }
+
+  void mapToList(var x) async {
+    await x.forEach((K, V) {
+      list.add(Item(K, V));
+      for (int i = 0; i < V.length; i++) {
+        print('--------------${V[i]}');
+        list2.add(V[i]);
+      }
+    });
   }
 
   Future<http.Response> sendRequest(String pName, double range) async {

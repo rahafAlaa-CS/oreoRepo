@@ -42,7 +42,7 @@ class _CustomButtonState extends State<CustomButton> {
         child: Text(
           widget.title,
           style: const TextStyle(
-              fontSize: 32,
+              fontSize: 30,
               color: Colors.white,
               fontFamily: "CrimsonText-Regular",
               fontWeight: FontWeight.w500),
