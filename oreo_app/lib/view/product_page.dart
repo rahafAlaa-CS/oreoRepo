@@ -124,6 +124,7 @@ class _ProductPageState extends State<ProductPage> {
                     mapToList(jsonDecode(res.body));
                     print("=======================${list2}");
                     start();
+                    list2.clear();
                   }),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.05,

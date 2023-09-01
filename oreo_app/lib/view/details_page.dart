@@ -15,23 +15,8 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   TextEditingController Email = TextEditingController();
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   Words _words = Words.fromJson(widget.body.body);
-  //   print(_words);
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // List<String> myModels = List<String>.from(json.decode(widget.body.body));
-    // List<String>? myModels;
-    // widget.body.body.forEach((element) => myModels!.add(element.toString()));
-// print(myModels);
-
-    // var myModels =
-    //     (json.decode(widget.body.body) as List<String>).cast<String>();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(120), // Set this height
@@ -172,20 +157,9 @@ class _DetailsPageState extends State<DetailsPage> {
                       CustomSendButton(
                           title: "Send",
                           action: () async {
-                            print("==========================");
-                            //print(jsonDecode(widget.body.body));
-
-                            // Sent Email, words list and pName to the API
-                            // Pname : make Pname accesable : make it public
-                            // we already have the EMail and the words list
-
-                            // call the method send to email
-
                             var res = await sendToEmail(
                                 Email.text, widget.body, productName.text);
                             print("${res.statusCode}");
-                            //print(res.body);
-
                             Navigator.pop(context);
                           }),
                     ]),
